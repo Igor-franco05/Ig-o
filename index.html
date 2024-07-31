@@ -1,49 +1,40 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport"content="width=device-width, incial-scale=1.0">
-    <style>
-        #area {
-            background-color: blue;
-            color: purple;
-            font: arial;
-            height: 100px;
-            width: 200px;
-            text-aling: center;
-            line-height: 100px;
-            border: trick groove black;
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radar de Velocidade</title>
+    <script>
+        function calcularMulta() {
+            let velocidadeMaxima = parseFloat(document.getElementById("velocidadeMaxima").value);
+            let velocidadeAtual = parseFloat(document.getElementById("velocidadeAtual").value);
+            let resultado = document.getElementById("resultado");
             
+            if (!isNaN(velocidadeMaxima) && !isNaN(velocidadeAtual)) {
+                if (velocidadeAtual <= velocidadeMaxima) {
+                    resultado.textContent = "Sem multa";
+                } else {
+                    let excesso = velocidadeAtual - velocidadeMaxima;
+                    let porcentagemExcesso = (excesso / velocidadeMaxima) * 100;
+                    
+                    if (porcentagemExcesso <= 10) {
+                        resultado.textContent = "Multa de R$100,00";
+                    } else if (porcentagemExcesso <= 20) {
+                        resultado.textContent = "Multa de R$200,00";
+                    } else {
+                        resultado.textContent = "Multa de R$300,00";
+                    }
+                }
+            } else {
+                resultado.textContent = "Por favor, preencha ambos os campos com valores válidos.";
+            }
         }
-    </style>
-    </head>
+    </script>
+</head>
 <body>
-    <h1>Olá, mundo!</h1>
-    <p>resultado aqui</p>
-    <p> aprendendo a usar o <strong>DOM</strong> em JS</p>
-    <div id="area" onclick="clicar()" ontouchstart="entrar()" ontouchend="sair()">Clique Aqui</div>
- <script>
-     var a = document.getElementById('area')
-     function clicar(){
-         a.innerText = 'clicou!';
-         a.style.backgroundColor = '#8B0000';
-        }
-     
-     var b = document.getElementById('area')
-     function entrar(){
-            a.innerText = 'segurou!';
-            a.style.backgroundColor = '#3CB371';
-        }
-
-     var c = document.getElementById('area')
-     function sair(){
-            a.innerText = 'Deslizou!';
-            a.style.backgroundColor = '#00CED1';
-        }
-     
- </script>   
-<h1><strong>Me dá nota pfvr 🙂</strong></h1>
-<h4>Eu sei qual é sua moto</h4>
-<h6>Vai que acontece algo né...</h6>
+    <input type="number" id="velocidadeMaxima" placeholder="Velocidade Máxima">
+    <input type="number" id="velocidadeAtual" placeholder="Velocidade Atual">
+    <button onclick="calcularMulta()">Calcular Multa</button>
+    <p id="resultado"></p>
 </body>
 </html>
